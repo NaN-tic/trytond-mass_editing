@@ -174,9 +174,12 @@ class MassEditWizardStart(ModelView):
                     ('remove_all', 'Remove All'),
                     ]
                 _field = getattr(EditingModel, field.name, None)
-                if field.ttype == 'many2many'or _field.add_remove:
+                if field.ttype == 'many2many' or _field.add_remove:
                     selection_vals.append(('add', 'Add'),)
                     selection_vals.append(('remove', 'Remove'),)
+
+                if fields[field.name].get('add_remove'):
+                    del fields[field.name]['add_remove']
             else:
                 selection_vals = [
                     ('', ''),
@@ -308,10 +311,12 @@ class MassEditingWizard(Wizard):
                                     if isinstance(field_value, list):
                                         new_val[field_name] = [tuple(['add',
                                                 field_value])]
-                                    target_field = TargetModel._fields[field_name]
-                                    if (isinstance(target_field, fields.Function)
-                                        and not target_field.setter):
-                                            del new_val[field_name]
+                                    target_field = TargetModel._fields[
+                                        field_name]
+                                    if (isinstance(
+                                                target_field, fields.Function)
+                                            and not target_field.setter):
+                                        del new_val[field_name]
 
                                 to_create.append(new_val)
                             else:
@@ -351,7 +356,8 @@ class MassEditingWizard(Wizard):
                         xxx2m_ids |= set([r.id for r in getattr(
                             record, _field.name)])
                     res.update({split_key: [
-                        ('delete' if one2many else 'remove', list(xxx2m_ids))]})
+                                ('delete' if one2many else 'remove',
+                                    list(xxx2m_ids))]})
                 elif value == 'add':
                     res.update({split_key: [('add', vals.get(split_key, []))]})
         if res:
