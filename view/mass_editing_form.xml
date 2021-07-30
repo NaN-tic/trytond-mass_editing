@@ -2,6 +2,8 @@
 <!--The COPYRIGHT file at the top level of this repository
 contains the full copyright notices and license terms. -->
 <form>
+    <label id="mass_edit_info" string="Mass editing is a dangerous operation and in some cases may not work or not work as expected. Make responsible use of it with previous relevant tests. "/>
+    <newline/>
     <label name="model"/>
     <field name="model"/>
     <field name="model_fields" colspan="4"/>
