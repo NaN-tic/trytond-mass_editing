@@ -157,3 +157,13 @@ msgstr "Cancel·la"
 msgctxt "wizard_button:mass.editing.wizard,start,update:"
 msgid "Apply"
 msgstr "Aplica"
+
+msgctxt "view:mass.editing:"
+msgid ""
+"Mass editing is a dangerous operation and in some cases may not work or not "
+"work as expected. Make responsible use of it with previous relevant tests."
+msgstr ""
+"L'actualització massiva és una operació perillosa i en certs casos pot ser "
+"que no funcioni o no funcioni de la forma esperada. Feu-ne un ús responsable "
+"amb les prèvies proves pertinents."
+
