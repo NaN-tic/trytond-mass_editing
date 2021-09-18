@@ -240,12 +240,12 @@ class MassEditWizardStart(ModelView):
     def default_get(cls, fields, with_rec_name=True):
         pool = Pool()
         context = Transaction().context
-        model = context.get('active_model', None)
-        EditingModel = pool.get(model)
-        res = dict.fromkeys([f for f in fields
-                    if f[:10] == 'selection_'], '')
-        res.update(EditingModel.default_get([f for f in fields
-                    if f[:10] != 'selection_'], with_rec_name))
+        res = dict.fromkeys([f for f in fields if f[:10] == 'selection_'], '')
+        model = context.get('active_model')
+        if model:
+            EditingModel = pool.get(model)
+            res.update(EditingModel.default_get([f for f in fields
+                        if f[:10] != 'selection_'], with_rec_name))
         return res
 
 
@@ -279,9 +279,12 @@ class MassEditingWizard(Wizard):
     def transition_update(self):
         pool = Pool()
         context = Transaction().context
-        model = context['active_model']
-        EditingModel = pool.get(model)
+
         res = {}
+        model = context.get('active_model')
+        if not model:
+            return res
+        EditingModel = pool.get(model)
         vals = self.start_data
         for field, value in vals.items():
             if field.startswith('selection_'):
