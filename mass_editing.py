@@ -283,7 +283,7 @@ class MassEditingWizard(Wizard):
         res = {}
         model = context.get('active_model')
         if not model:
-            return res
+            return 'end'
         EditingModel = pool.get(model)
         vals = self.start_data
         for field, value in vals.items():
