@@ -110,7 +110,7 @@ class MassEditWizardStart(ModelView):
         super(MassEditWizardStart, cls).__setup__()
 
     @classmethod
-    def fields_view_get(cls, view_id=None, view_type='form'):
+    def fields_view_get(cls, view_id=None, view_type='form', level=None):
         class Decoder(json.JSONDecoder):
 
             def __init__(self, context=None):
@@ -126,7 +126,7 @@ class MassEditWizardStart(ModelView):
         MassEdit = pool.get('mass.editing')
 
         res = super(MassEditWizardStart, cls).fields_view_get(view_id,
-            view_type)
+            view_type, level)
 
         if view_type == 'tree':
             return res
