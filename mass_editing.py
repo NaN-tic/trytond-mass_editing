@@ -181,10 +181,10 @@ class MassEditWizardStart(ModelView):
                 if fields[field.name].get('add_remove'):
                     del fields[field.name]['add_remove']
             elif field.ttype == 'selection':
-                if hasattr(EditingModel, 'get_'+field.name):
-                    selection = getattr(EditingModel, 'get_'+field.name)()
-                    if isinstance(selection, type(list())):
-                        fields[field.name]['selection'] = selection
+                field_selection = getattr(EditingModel, field.name).selection
+                if isinstance(field_selection, str):
+                    selection = getattr(EditingModel, field_selection)()
+                    fields[field.name]['selection'] = selection
             else:
                 selection_vals = [
                     ('', ''),
