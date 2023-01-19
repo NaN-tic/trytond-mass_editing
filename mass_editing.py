@@ -11,8 +11,7 @@ from trytond.pyson import Eval, PYSONEncoder
 from trytond.i18n import gettext
 from trytond.exceptions import UserError
 
-__all__ = ['MassEdit', 'MassEditFields', 'MassEditWizardStart',
-    'MassEditingWizard']
+PAGE_FIELDS = 8
 
 
 class MassEdit(ModelSQL, ModelView):
@@ -25,7 +24,7 @@ class MassEdit(ModelSQL, ModelView):
         domain=[
             ('model', '=', Eval('model', 0)),
             ],
-        depends=['model'])
+        depends=['model'], order=[('field.field_description', 'ASC')])
     keyword = fields.Many2One('ir.action.keyword', 'Keyword', readonly=True)
 
     @classmethod
@@ -146,7 +145,30 @@ class MassEditWizardStart(ModelView):
 
         fields.update(EditingModel.fields_get([f.name for f in
                     edit.model_fields]))
-        for field in edit.model_fields:
+
+        # Add notebook if many fields
+        pages = []
+        if len(edit.model_fields) > PAGE_FIELDS:
+            field_string = MassEdit.fields_get(['model_fields']
+                )['model_fields']['string']
+            notebook = etree.SubElement(form, 'notebook', {})
+            for x in range(0, (len(edit.model_fields) // PAGE_FIELDS) + 1):
+                if x == 0:
+                    first = 'A'
+                else:
+                    first = edit.model_fields[x * PAGE_FIELDS].field_description[0]
+                idx = (x + 1) * PAGE_FIELDS - 1
+                if idx < len(edit.model_fields) - 1:
+                    last = edit.model_fields[idx].field_description[0]
+                else:
+                    last = 'Z'
+                pages.append(etree.SubElement(notebook, 'page', {
+                        'string': '%s (%s-%s)' % (field_string, first.upper(),
+                            last.upper()),
+                        'id': 'page_%s' % x,
+                }))
+
+        for index, field in enumerate(edit.model_fields):
             if fields[field.name].get('states'):
                 fields[field.name]['states'] = {}
 
@@ -211,7 +233,8 @@ class MassEditWizardStart(ModelView):
                 'help': '',
                 }
 
-            xml_group = etree.SubElement(form, 'group', {
+            xml_parent = form if not pages else pages[index // PAGE_FIELDS]
+            xml_group = etree.SubElement(xml_parent, 'group', {
                     'col': '2',
                     'colspan': '4',
                     })
