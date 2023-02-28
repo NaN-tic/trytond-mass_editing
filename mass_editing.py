@@ -168,6 +168,8 @@ class MassEditWizardStart(ModelView):
                         'id': 'page_%s' % x,
                 }))
 
+        Model = pool.get(edit.model.model)
+
         for index, field in enumerate(edit.model_fields):
             if fields[field.name].get('states'):
                 fields[field.name]['states'] = {}
@@ -258,6 +260,17 @@ class MassEditWizardStart(ModelView):
                 etree.SubElement(xml_group, 'field', {
                         'name': field.name,
                         'colspan': colspan,
+                        })
+
+        if hasattr(Model, 'company'):
+            if not [f for f in edit.model_fields
+                    if f.name == 'company' and f.ttype == 'many2one']:
+                fields.update(EditingModel.fields_get(['company']))
+                etree.SubElement(form, 'field', {
+                        'name': 'company',
+                        'colspan': '2',
+                        'readonly': '1',
+                        'invisible': '1',
                         })
 
         res['arch'] = etree.tostring(root).decode('utf-8')
