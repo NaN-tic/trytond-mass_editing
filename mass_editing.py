@@ -333,11 +333,15 @@ class MassEditingWizard(Wizard):
                 _field = getattr(EditingModel, split_key, None)
                 xxx2many = False
                 one2many = False
+                dik = False
                 if isinstance(_field, fields.Function) and _field.setter:
                     _field = _field._field  # Use original field
                 if (isinstance(_field, fields.One2Many)
                         or isinstance(_field, fields.Many2Many)):
                     xxx2many = True
+                if (isinstance(_field, fields.Dict)):
+                    dik = True
+
                 if isinstance(_field, fields.One2Many):
                     one2many = True
                 if value == 'set':
@@ -384,7 +388,19 @@ class MassEditingWizard(Wizard):
                         if to_write:
                             res.update({split_key: to_write})
                     else:
-                        res.update({split_key: vals.get(split_key, None)})
+                        if not dik:
+                            res.update({split_key: vals.get(split_key, None)})
+                        else:
+                            records = EditingModel.browse(Transaction().context.get('active_ids'))
+                            for record in records:
+                                val = dict(getattr(record, split_key) or {})
+                                val.update(vals.get(split_key))
+                                setattr(
+                                    record,
+                                    split_key,
+                                    val)
+                                record.save()
+
                 elif value == 'remove':
                     if xxx2many:
                         res.update({split_key: [
