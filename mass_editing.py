@@ -141,6 +141,13 @@ class MassEditWizardStart(ModelView):
         edit, = edits
         fields = res['fields']
         root = etree.fromstring(res['arch'])
+        # Iterate on all root children and remove them except for the tag
+        # separator with id attribute = 'fields'
+        for child in root.getchildren():
+            if (child.tag == 'separator' and child.get('id') == 'fields'):
+                continue
+            root.remove(child)
+
         form = root.find('separator').getparent()
 
         fields.update(EditingModel.fields_get([f.name for f in
@@ -152,7 +159,7 @@ class MassEditWizardStart(ModelView):
             field_string = MassEdit.fields_get(['model_fields']
                 )['model_fields']['string']
             notebook = etree.SubElement(form, 'notebook', {})
-            for x in range(0, (len(edit.model_fields) // PAGE_FIELDS) + 1):
+            for x in range(0, ((len(edit.model_fields)-1) // PAGE_FIELDS) + 1):
                 if x == 0:
                     first = 'A'
                 else:
