@@ -123,6 +123,7 @@ class MassEditWizardStart(ModelView):
 
         pool = Pool()
         MassEdit = pool.get('mass.editing')
+        Field = pool.get('ir.model.field')
 
         res = super(MassEditWizardStart, cls).fields_view_get(view_id,
             view_type, level)
@@ -135,6 +136,7 @@ class MassEditWizardStart(ModelView):
         if not model:
             return res
         EditingModel = pool.get(model)
+
         edits = MassEdit.search([('model.model', '=', model)], limit=1)
         if not edits:
             return res
@@ -149,24 +151,36 @@ class MassEditWizardStart(ModelView):
             root.remove(child)
 
         form = root.find('separator').getparent()
+        Model = pool.get(edit.model.model)
+
+        model_fields = edit.model_fields
+        company_field = None
+        if hasattr(Model, 'company'):
+            if not [f for f in edit.model_fields
+                    if f.name == 'company' and f.ttype == 'many2one']:
+                company_field = Field.search([
+                    ('name', '=', 'company'),
+                    ('model.model', '=', model)], limit=1)
+                if company_field:
+                    model_fields = model_fields + (company_field[0],)
 
         fields.update(EditingModel.fields_get([f.name for f in
-                    edit.model_fields]))
+                    model_fields]))
 
         # Add notebook if many fields
         pages = []
-        if len(edit.model_fields) > PAGE_FIELDS:
+        if len(model_fields) > PAGE_FIELDS:
             field_string = MassEdit.fields_get(['model_fields']
                 )['model_fields']['string']
             notebook = etree.SubElement(form, 'notebook', {})
-            for x in range(0, ((len(edit.model_fields)-1) // PAGE_FIELDS) + 1):
+            for x in range(0, ((len(model_fields)-1) // PAGE_FIELDS) + 1):
                 if x == 0:
                     first = 'A'
                 else:
-                    first = edit.model_fields[x * PAGE_FIELDS].field_description[0]
+                    first = model_fields[x * PAGE_FIELDS].field_description[0]
                 idx = (x + 1) * PAGE_FIELDS - 1
-                if idx < len(edit.model_fields) - 1:
-                    last = edit.model_fields[idx].field_description[0]
+                if idx < len(model_fields) - 1:
+                    last = model_fields[idx].field_description[0]
                 else:
                     last = 'Z'
                 pages.append(etree.SubElement(notebook, 'page', {
@@ -175,9 +189,7 @@ class MassEditWizardStart(ModelView):
                         'id': 'page_%s' % x,
                 }))
 
-        Model = pool.get(edit.model.model)
-
-        for index, field in enumerate(edit.model_fields):
+        for index, field in enumerate(model_fields):
             if fields[field.name].get('states'):
                 fields[field.name]['states'] = {}
 
@@ -248,6 +260,15 @@ class MassEditWizardStart(ModelView):
                     'colspan': '4',
                     })
 
+            if field.name == 'company' and company_field:
+                etree.SubElement(form, 'field', {
+                    'name': 'company',
+                    'colspan': '2',
+                    'readonly': '1',
+                    'invisible': '1',
+                    })
+                continue
+
             to_find = ".//label[@id='label_%s']" % field.name
             if root.find(to_find) is None:
                 etree.SubElement(xml_group, 'label', {
@@ -267,17 +288,6 @@ class MassEditWizardStart(ModelView):
                 etree.SubElement(xml_group, 'field', {
                         'name': field.name,
                         'colspan': colspan,
-                        })
-
-        if hasattr(Model, 'company'):
-            if not [f for f in edit.model_fields
-                    if f.name == 'company' and f.ttype == 'many2one']:
-                fields.update(EditingModel.fields_get(['company']))
-                etree.SubElement(form, 'field', {
-                        'name': 'company',
-                        'colspan': '2',
-                        'readonly': '1',
-                        'invisible': '1',
                         })
 
         res['arch'] = etree.tostring(root).decode('utf-8')
