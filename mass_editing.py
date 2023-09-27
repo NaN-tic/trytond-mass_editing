@@ -164,8 +164,11 @@ class MassEditWizardStart(ModelView):
                 if company_field:
                     model_fields = model_fields + (company_field[0],)
 
-        fields.update(EditingModel.fields_get([f.name for f in
-                    model_fields]))
+        model_field_names = [f.name for f in model_fields]
+        for k, v in EditingModel.fields_get(model_field_names).items():
+            # Ensure field_name key from fields_get is requested in edit.model_fields
+            if k in model_field_names:
+                fields[k] = v
 
         # Add notebook if many fields
         pages = []
