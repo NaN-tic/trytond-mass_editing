@@ -166,7 +166,7 @@ class MassEditWizardStart(ModelView):
 
         model_field_names = [f.name for f in model_fields]
         for k, v in EditingModel.fields_get(model_field_names).items():
-            # sure field_name key from fields_get is request in edit.model_fields
+            # Ensure field_name key from fields_get is requested in edit.model_fields
             if k in model_field_names:
                 fields[k] = v
 
