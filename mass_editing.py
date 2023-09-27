@@ -144,8 +144,12 @@ class MassEditWizardStart(ModelView):
         root = etree.fromstring(res['arch'])
         form = root.find('separator').getparent()
 
-        fields.update(EditingModel.fields_get([f.name for f in
-                    edit.model_fields]))
+        model_field_names = [f.name for f in edit.model_fields]
+        for k, v in EditingModel.fields_get(model_field_names).items():
+            # Ensure field_name key from fields_get is requested in edit.model_fields
+            if k in model_field_names:
+                fields[k] = v
+
         for field in edit.model_fields:
             if fields[field.name].get('states'):
                 fields[field.name]['states'] = {}
