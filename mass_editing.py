@@ -227,6 +227,11 @@ class MassEditWizardStart(ModelView):
                 if fields[field.name].get('add_remove'):
                     del fields[field.name]['add_remove']
             elif field.ttype == 'selection':
+                selection_vals = [
+                    ('', ''),
+                    ('set', 'Set'),
+                    ('remove', 'Remove')
+                    ]
                 field_selection = getattr(EditingModel, field.name).selection
                 if isinstance(field_selection, str):
                     selection = getattr(EditingModel, field_selection)()
@@ -236,7 +241,7 @@ class MassEditWizardStart(ModelView):
                     ('', ''),
                     ('set', 'Set'),
                     ('remove', 'Remove')
-                ]
+                    ]
             translated_vals = []
             for val in selection_vals:
                 if val[0]:
