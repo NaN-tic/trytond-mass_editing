@@ -125,6 +125,9 @@ class MassEditWizardStart(ModelView):
         MassEdit = pool.get('mass.editing')
         Field = pool.get('ir.model.field')
 
+        # sure clear view cache
+        cls._fields_view_get_cache.clear()
+
         res = super(MassEditWizardStart, cls).fields_view_get(view_id,
             view_type, level)
 
