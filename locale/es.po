@@ -2,18 +2,6 @@
 msgid ""
 msgstr "Content-Type: text/plain; charset=utf-8\n"
 
-msgctxt "field:mass.editing,create_date:"
-msgid "Create Date"
-msgstr "Fecha de creación"
-
-msgctxt "field:mass.editing,create_uid:"
-msgid "Create User"
-msgstr "Usuario de creación"
-
-msgctxt "field:mass.editing,id:"
-msgid "ID"
-msgstr "ID"
-
 msgctxt "field:mass.editing,keyword:"
 msgid "Keyword"
 msgstr "Asistente"
@@ -26,53 +14,13 @@ msgctxt "field:mass.editing,model_fields:"
 msgid "Fields"
 msgstr "Campos"
 
-msgctxt "field:mass.editing,rec_name:"
-msgid "Record Name"
-msgstr "Nombre"
-
-msgctxt "field:mass.editing,write_date:"
-msgid "Write Date"
-msgstr "Fecha de modificación"
-
-msgctxt "field:mass.editing,write_uid:"
-msgid "Write User"
-msgstr "Usuario de modificación"
-
-msgctxt "field:mass.editing-ir.model.field,create_date:"
-msgid "Create Date"
-msgstr "Fecha de creación"
-
-msgctxt "field:mass.editing-ir.model.field,create_uid:"
-msgid "Create User"
-msgstr "Usuario de creación"
-
 msgctxt "field:mass.editing-ir.model.field,field:"
 msgid "Field"
 msgstr "Campo"
 
-msgctxt "field:mass.editing-ir.model.field,id:"
-msgid "ID"
-msgstr "ID"
-
 msgctxt "field:mass.editing-ir.model.field,mass_edit:"
 msgid "Mass"
 msgstr "Masiva"
-
-msgctxt "field:mass.editing-ir.model.field,rec_name:"
-msgid "Record Name"
-msgstr "Nombre"
-
-msgctxt "field:mass.editing-ir.model.field,write_date:"
-msgid "Write Date"
-msgstr "Fecha de modificación"
-
-msgctxt "field:mass.editing-ir.model.field,write_uid:"
-msgid "Write User"
-msgstr "Usuario de modificación"
-
-msgctxt "field:mass.editing.wizard.start,id:"
-msgid "ID"
-msgstr "ID"
 
 msgctxt "model:ir.action,name:action_mass_editing_view"
 msgid "Mass Editing"
@@ -85,6 +33,14 @@ msgstr "Actualización masiva"
 msgctxt "model:ir.message,text:add"
 msgid "Add"
 msgstr "Añadir"
+
+msgctxt "model:ir.message,text:msg_error_setter"
+msgid ""
+"Can not add the field \"%(name)s\" because it is a function field without "
+"setter."
+msgstr ""
+"No puede agregar el camp \"%(name)s\" porque es un campo funcional sin la "
+"función de escritura."
 
 msgctxt "model:ir.message,text:not_modelsql"
 msgid "Model \"%(model)s\" does not store information to an SQL table."
@@ -131,32 +87,8 @@ msgid "Mass Edit Wizard Start"
 msgstr "Inicio asistente actualización masiva"
 
 msgctxt "view:mass.editing.wizard.start:"
-msgid "Mass Editing Wizard"
-msgstr "Asistente actualización masiva"
-
-msgctxt "view:mass.editing.wizard.start:"
 msgid "Select fields to update."
 msgstr "Seleccione campos a actualizar."
-
-msgctxt "view:mass.editing:"
-msgid "Create Keyword"
-msgstr "Crear asistente"
-
-msgctxt "view:mass.editing:"
-msgid "Mass Editing"
-msgstr "Actualización masiva"
-
-msgctxt "view:mass.editing:"
-msgid "Remove Keyword"
-msgstr "Eliminar asistente"
-
-msgctxt "wizard_button:mass.editing.wizard,start,end:"
-msgid "Cancel"
-msgstr "Cancelar"
-
-msgctxt "wizard_button:mass.editing.wizard,start,update:"
-msgid "Apply"
-msgstr "Aplicar"
 
 msgctxt "view:mass.editing:"
 msgid ""
@@ -166,3 +98,11 @@ msgstr ""
 "La actualización masiva es una operación peligrosa y en ciertos casos puede "
 "que no funcione o no funcione de la forma esperada. Haga un uso responsable "
 "con las previas pruebas pertinentes."
+
+msgctxt "wizard_button:mass.editing.wizard,start,end:"
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgctxt "wizard_button:mass.editing.wizard,start,update:"
+msgid "Apply"
+msgstr "Aplicar"
