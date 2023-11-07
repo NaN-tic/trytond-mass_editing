@@ -109,7 +109,6 @@ class MassEditFields(ModelSQL):
         Model = Pool().get(self.field.model.model)
 
         _field = Model._fields.get(self.field.name)
-        print(self.field.name, _field)
         if isinstance(_field, fields.Function) and not _field.setter:
             raise UserError(gettext('mass_editing.'
                     'msg_error_setter', name=self.field.rec_name,))

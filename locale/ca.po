@@ -36,7 +36,7 @@ msgstr "Afegir"
 
 msgctxt "model:ir.message,text:msg_error_setter"
 msgid ""
-"Can not add the field \"%(name)s\" because is a function field without "
+"Can not add the field \"%(name)s\" because it is a function field without "
 "setter."
 msgstr ""
 "No pot afegir el camp \"%(name)s\" perque és un camp funcional sense la "
