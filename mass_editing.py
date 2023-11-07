@@ -99,6 +99,20 @@ class MassEditFields(ModelSQL):
     field = fields.Many2One('ir.model.field', 'Field', required=True,
         ondelete='CASCADE')
 
+    @classmethod
+    def validate(cls, fields):
+        super().validate(fields)
+        for _field in fields:
+            _field.check_field()
+
+    def check_field(self):
+        Model = Pool().get(self.field.model.model)
+
+        _field = Model._fields.get(self.field.name)
+        if isinstance(_field, fields.Function) and not _field.setter:
+            raise UserError(gettext('mass_editing.'
+                    'msg_error_setter', name=self.field.rec_name,))
+
 
 class MassEditWizardStart(ModelView):
     'Mass Edit Wizard Start'
@@ -451,5 +465,9 @@ class MassEditingWizard(Wizard):
         if res:
             instances = EditingModel.browse(Transaction().context.get(
                     'active_ids'))
-            EditingModel.write(instances, res)
+            try:
+                EditingModel.write(instances, res)
+            except NotImplementedError as e:
+                raise UserError(str(e))
+
         return 'end'
