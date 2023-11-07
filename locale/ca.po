@@ -2,18 +2,6 @@
 msgid ""
 msgstr "Content-Type: text/plain; charset=utf-8\n"
 
-msgctxt "field:mass.editing,create_date:"
-msgid "Create Date"
-msgstr "Data de creació"
-
-msgctxt "field:mass.editing,create_uid:"
-msgid "Create User"
-msgstr "Usuari de creació"
-
-msgctxt "field:mass.editing,id:"
-msgid "ID"
-msgstr "ID"
-
 msgctxt "field:mass.editing,keyword:"
 msgid "Keyword"
 msgstr "Assistent"
@@ -26,53 +14,13 @@ msgctxt "field:mass.editing,model_fields:"
 msgid "Fields"
 msgstr "Camps"
 
-msgctxt "field:mass.editing,rec_name:"
-msgid "Record Name"
-msgstr "Nom"
-
-msgctxt "field:mass.editing,write_date:"
-msgid "Write Date"
-msgstr "Data de modificació"
-
-msgctxt "field:mass.editing,write_uid:"
-msgid "Write User"
-msgstr "Usuari de modificació"
-
-msgctxt "field:mass.editing-ir.model.field,create_date:"
-msgid "Create Date"
-msgstr "Data de creació"
-
-msgctxt "field:mass.editing-ir.model.field,create_uid:"
-msgid "Create User"
-msgstr "Usuari de creació"
-
 msgctxt "field:mass.editing-ir.model.field,field:"
 msgid "Field"
 msgstr "Camp"
 
-msgctxt "field:mass.editing-ir.model.field,id:"
-msgid "ID"
-msgstr "ID"
-
 msgctxt "field:mass.editing-ir.model.field,mass_edit:"
 msgid "Mass"
 msgstr "Massiu"
-
-msgctxt "field:mass.editing-ir.model.field,rec_name:"
-msgid "Record Name"
-msgstr "Nom"
-
-msgctxt "field:mass.editing-ir.model.field,write_date:"
-msgid "Write Date"
-msgstr "Data de modificació"
-
-msgctxt "field:mass.editing-ir.model.field,write_uid:"
-msgid "Write User"
-msgstr "Usuari de modificació"
-
-msgctxt "field:mass.editing.wizard.start,id:"
-msgid "ID"
-msgstr "ID"
 
 msgctxt "model:ir.action,name:action_mass_editing_view"
 msgid "Mass Editing"
@@ -85,6 +33,14 @@ msgstr "Actualització massiva"
 msgctxt "model:ir.message,text:add"
 msgid "Add"
 msgstr "Afegir"
+
+msgctxt "model:ir.message,text:msg_error_setter"
+msgid ""
+"Can not add the field \"%(name)s\" because is a function field without "
+"setter."
+msgstr ""
+"No pot afegir el camp \"%(name)s\" perque és un camp funcional sense la "
+"funció d'escriptura."
 
 msgctxt "model:ir.message,text:not_modelsql"
 msgid "Model \"%(model)s\" does not store information to an SQL table."
@@ -131,24 +87,17 @@ msgid "Mass Edit Wizard Start"
 msgstr "Inici assistent edició massiva"
 
 msgctxt "view:mass.editing.wizard.start:"
-msgid "Mass Editing Wizard"
-msgstr "Assistent edició massiva"
-
-msgctxt "view:mass.editing.wizard.start:"
 msgid "Select fields to update."
 msgstr "Seleccioneu els camps a actualitzar."
 
 msgctxt "view:mass.editing:"
-msgid "Create Keyword"
-msgstr "Crea assistent"
-
-msgctxt "view:mass.editing:"
-msgid "Mass Editing"
-msgstr "Edició massiva"
-
-msgctxt "view:mass.editing:"
-msgid "Remove Keyword"
-msgstr "Elimina assistent"
+msgid ""
+"Mass editing is a dangerous operation and in some cases may not work or not "
+"work as expected. Make responsible use of it with previous relevant tests."
+msgstr ""
+"L'actualització massiva és una operació perillosa i en certs casos pot ser "
+"que no funcioni o no funcioni de la forma esperada. Feu-ne un ús responsable"
+" amb les prèvies proves pertinents."
 
 msgctxt "wizard_button:mass.editing.wizard,start,end:"
 msgid "Cancel"
@@ -157,13 +106,3 @@ msgstr "Cancel·la"
 msgctxt "wizard_button:mass.editing.wizard,start,update:"
 msgid "Apply"
 msgstr "Aplica"
-
-msgctxt "view:mass.editing:"
-msgid ""
-"Mass editing is a dangerous operation and in some cases may not work or not "
-"work as expected. Make responsible use of it with previous relevant tests."
-msgstr ""
-"L'actualització massiva és una operació perillosa i en certs casos pot ser "
-"que no funcioni o no funcioni de la forma esperada. Feu-ne un ús responsable "
-"amb les prèvies proves pertinents."
-

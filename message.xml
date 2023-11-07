@@ -6,6 +6,9 @@ this repository contains the full copyright notices and license terms. -->
         <record model="ir.message" id="not_modelsql">
             <field name="text">Model "%(model)s" does not store information to an SQL table.</field>
         </record>
+        <record model="ir.message" id="msg_error_setter">
+            <field name="text">Can not add the field "%(name)s" because is a function field without setter.</field>
+        </record>
         <record model="ir.message" id="add">
             <field name="text">Add</field>
         </record>
