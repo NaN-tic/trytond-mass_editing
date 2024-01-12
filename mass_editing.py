@@ -23,8 +23,7 @@ class MassEdit(ModelSQL, ModelView):
         'mass_edit', 'field', 'Fields',
         domain=[
             ('model', '=', Eval('model', 0)),
-            ],
-        depends=['model'], order=[('field.field_description', 'ASC')])
+            ], order=[('field.field_description', 'ASC')])
     keyword = fields.Many2One('ir.action.keyword', 'Keyword', readonly=True)
 
     @classmethod
