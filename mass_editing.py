@@ -57,6 +57,10 @@ class MassEdit(ModelSQL, ModelView):
         return '%s' % (self.model.rec_name)
 
     @classmethod
+    def search_rec_name(cls, name, clause):
+        return [('model.rec_name',) + tuple(clause[1:])]
+
+    @classmethod
     @ModelView.button
     def create_keyword(cls, massedits):
         pool = Pool()
