@@ -19,10 +19,12 @@ class MassEdit(ModelSQL, ModelView):
     __name__ = 'mass.editing'
     model = fields.Many2One('ir.model', 'Model', required=True,
         ondelete='CASCADE')
+    model_name = fields.Function(fields.Char('Model Name'),
+        'on_change_with_model_name')
     model_fields = fields.Many2Many('mass.editing-ir.model.field',
         'mass_edit', 'field', 'Fields',
         domain=[
-            ('model', '=', Eval('model', 0)),
+            ('model', '=', Eval('model_name')),
             ], order=[('field.field_description', 'ASC')])
     keyword = fields.Many2One('ir.action.keyword', 'Keyword', readonly=True)
 
@@ -58,6 +60,10 @@ class MassEdit(ModelSQL, ModelView):
     @classmethod
     def search_rec_name(cls, name, clause):
         return [('model.rec_name',) + tuple(clause[1:])]
+
+    @fields.depends('model')
+    def on_change_with_model_name(self, name=None):
+        return self.model and self.model.model
 
     @classmethod
     @ModelView.button
@@ -109,7 +115,7 @@ class MassEditFields(ModelSQL):
             _field.check_field()
 
     def check_field(self):
-        Model = Pool().get(self.field.model.model)
+        Model = Pool().get(self.field.model)
 
         _field = Model._fields.get(self.field.name)
         if isinstance(_field, fields.Function) and not _field.setter:
