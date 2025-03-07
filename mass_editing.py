@@ -198,18 +198,20 @@ class MassEditWizardStart(ModelView):
 
         # Add notebook if many fields
         pages = []
-        if len(model_fields) > PAGE_FIELDS:
+        visible_model_fields = [f for f in model_fields
+            if not (f.name == 'company' and company_field)]
+        if len(visible_model_fields) > PAGE_FIELDS:
             field_string = MassEdit.fields_get(['model_fields']
                 )['model_fields']['string']
             notebook = etree.SubElement(form, 'notebook', {})
-            for x in range(0, ((len(model_fields)-1) // PAGE_FIELDS) + 1):
+            for x in range(0, ((len(visible_model_fields)-1) // PAGE_FIELDS) + 1):
                 if x == 0:
                     first = 'A'
                 else:
-                    first = model_fields[x * PAGE_FIELDS].field_description[0]
+                    first = visible_model_fields[x * PAGE_FIELDS].field_description[0]
                 idx = (x + 1) * PAGE_FIELDS - 1
-                if idx < len(model_fields) - 1:
-                    last = model_fields[idx].field_description[0]
+                if idx < len(visible_model_fields) - 1:
+                    last = visible_model_fields[idx].field_description[0]
                 else:
                     last = 'Z'
                 pages.append(etree.SubElement(notebook, 'page', {
