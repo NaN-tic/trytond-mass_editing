@@ -25,7 +25,7 @@ class MassEdit(ModelSQL, ModelView):
         'mass_edit', 'field', 'Fields',
         domain=[
             ('model', '=', Eval('model_name')),
-            ], order=[('field.field_description', 'ASC')])
+            ], order=[('field.string', 'ASC')])
     keyword = fields.Many2One('ir.action.keyword', 'Keyword', readonly=True)
 
     @classmethod
@@ -49,7 +49,7 @@ class MassEdit(ModelSQL, ModelView):
     def validate(cls, massedits):
         super(MassEdit, cls).validate(massedits)
         for massedit in massedits:
-            Model = Pool().get(massedit.model.model)
+            Model = Pool().get(massedit.model.name)
             if not issubclass(Model, ModelSQL):
                 raise UserError(gettext('massedit.not_modelsql',
                     model=massedit.rec_name))
@@ -63,7 +63,7 @@ class MassEdit(ModelSQL, ModelView):
 
     @fields.depends('model')
     def on_change_with_model_name(self, name=None):
-        return self.model and self.model.model
+        return self.model and self.model.name
 
     @classmethod
     @ModelView.button
@@ -80,7 +80,7 @@ class MassEdit(ModelSQL, ModelView):
                     'wizard_mass_editing'))
             keyword = Keyword()
             keyword.keyword = 'form_action'
-            keyword.model = '%s,-1' % massedit.model.model
+            keyword.model = '%s,-1' % massedit.model.name
             keyword.action = action.action
             keyword.save()
             massedit.keyword = keyword
@@ -163,7 +163,7 @@ class MassEditWizardStart(ModelView):
             return res
         EditingModel = pool.get(model)
 
-        edits = MassEdit.search([('model.model', '=', model)], limit=1)
+        edits = MassEdit.search([('model.name', '=', model)], limit=1)
         if not edits:
             return res
         edit, = edits
@@ -177,7 +177,7 @@ class MassEditWizardStart(ModelView):
             root.remove(child)
 
         form = root.find('separator').getparent()
-        Model = pool.get(edit.model.model)
+        Model = pool.get(edit.model.name)
 
         model_fields = edit.model_fields
         company_field = None
@@ -186,7 +186,7 @@ class MassEditWizardStart(ModelView):
                     if f.name == 'company' and f.ttype == 'many2one']:
                 company_field = Field.search([
                     ('name', '=', 'company'),
-                    ('model.model', '=', model)], limit=1)
+                    ('model.name', '=', model)], limit=1)
                 if company_field:
                     model_fields = model_fields + (company_field[0],)
 
@@ -208,10 +208,10 @@ class MassEditWizardStart(ModelView):
                 if x == 0:
                     first = 'A'
                 else:
-                    first = visible_model_fields[x * PAGE_FIELDS].field_description[0]
+                    first = visible_model_fields[x * PAGE_FIELDS].string[0]
                 idx = (x + 1) * PAGE_FIELDS - 1
                 if idx < len(visible_model_fields) - 1:
-                    last = visible_model_fields[idx].field_description[0]
+                    last = visible_model_fields[idx].string[0]
                 else:
                     last = 'Z'
                 pages.append(etree.SubElement(notebook, 'page', {
@@ -331,7 +331,7 @@ class MassEditWizardStart(ModelView):
         return res
 
     @classmethod
-    def default_get(cls, fields, with_rec_name=True):
+    def default_get(cls, fields, with_rec_name=True, with_default=True):
         pool = Pool()
         context = Transaction().context
         res = dict.fromkeys([f for f in fields if f[:10] == 'selection_'], '')
@@ -339,7 +339,7 @@ class MassEditWizardStart(ModelView):
         if model:
             EditingModel = pool.get(model)
             res.update(EditingModel.default_get([f for f in fields
-                        if f[:10] != 'selection_'], with_rec_name))
+                        if f[:10] != 'selection_'], with_rec_name, with_default))
         return res
 
 
