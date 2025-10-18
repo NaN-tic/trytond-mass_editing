@@ -75,9 +75,9 @@
             <field name="group" ref="res.group_admin"/>
         </record>
 
-        <menuitem name="Mass Editing" id="massediting_menu" parent="ir.menu_administration"/>
         <menuitem action="action_mass_editing_view"
             id="menu_mass_editing"
-            parent="massediting_menu"/>
+            parent="ir.menu_models"
+            sequence="100"/>
     </data>
 </tryton>
