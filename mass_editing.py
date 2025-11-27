@@ -10,6 +10,7 @@ from trytond.model import ModelView, ModelSQL, fields, Unique
 from trytond.pyson import Eval, PYSONEncoder
 from trytond.i18n import gettext
 from trytond.exceptions import UserError
+from trytond.model.exceptions import ValidationError
 
 PAGE_FIELDS = 8
 
@@ -51,7 +52,7 @@ class MassEdit(ModelSQL, ModelView):
         for massedit in massedits:
             Model = Pool().get(massedit.model.name)
             if not issubclass(Model, ModelSQL):
-                raise UserError(gettext('massedit.not_modelsql',
+                raise ValidationError(gettext('massedit.not_modelsql',
                     model=massedit.rec_name))
 
     def get_rec_name(self, name):
@@ -119,7 +120,7 @@ class MassEditFields(ModelSQL):
 
         _field = Model._fields.get(self.field.name)
         if isinstance(_field, fields.Function) and not _field.setter:
-            raise UserError(gettext('mass_editing.'
+            raise ValidationError(gettext('mass_editing.'
                     'msg_error_setter', name=self.field.rec_name,))
 
 
