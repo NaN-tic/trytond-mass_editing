@@ -52,7 +52,7 @@ class MassEdit(ModelSQL, ModelView):
         for massedit in massedits:
             Model = Pool().get(massedit.model.model)
             if not issubclass(Model, ModelSQL):
-                raise ValidationError(gettext('massedit.not_modelsql',
+                raise ValidationError(gettext('mass_editing.not_modelsql',
                     model=massedit.rec_name))
 
     def get_rec_name(self, name):
