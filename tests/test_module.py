@@ -48,7 +48,7 @@ class MassEditingTestCase(ModuleTestCase):
 
         with Transaction().set_context(
                 active_model='party.party',
-                active_ids=[party1, party2],
+                active_ids=[party1.id, party2.id],
                 ):
             session_id, _, _ = MassEditingWizard.create()
             masseditig = MassEditingWizard(session_id)

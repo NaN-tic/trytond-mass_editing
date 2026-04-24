@@ -7,7 +7,7 @@ from trytond.transaction import Transaction
 from trytond.pool import Pool
 from trytond.wizard import Wizard, StateView, StateTransition, Button
 from trytond.model import ModelView, ModelSQL, fields, Unique
-from trytond.pyson import Eval, PYSONEncoder
+from trytond.pyson import Bool, Eval, PYSONEncoder
 from trytond.i18n import gettext
 from trytond.exceptions import UserError
 from trytond.model.exceptions import ValidationError
@@ -39,10 +39,10 @@ class MassEdit(ModelSQL, ModelView):
         ]
         cls._buttons.update({
                 'create_keyword': {
-                    'invisible': Eval('keyword'),
+                    'invisible': Bool(Eval('keyword')),
                     },
                 'remove_keyword': {
-                    'invisible': ~Eval('keyword'),
+                    'invisible': ~Bool(Eval('keyword')),
                     },
                 })
 
