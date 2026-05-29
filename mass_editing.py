@@ -152,11 +152,14 @@ class MassEditWizardStart(ModelView):
         # sure clear view cache
         cls._fields_view_get_cache.clear()
 
-        res = super(MassEditWizardStart, cls).fields_view_get(view_id,
+        res = super().fields_view_get(view_id,
             view_type, level)
 
         if view_type == 'tree':
             return res
+
+        # super returns a mappingproxy so we need to convert to dict
+        res = dict(res)
 
         context = Transaction().context
         model = context.get('active_model', None)
@@ -168,7 +171,7 @@ class MassEditWizardStart(ModelView):
         if not edits:
             return res
         edit, = edits
-        fields = res['fields']
+        fields = dict(res['fields'])
         root = etree.fromstring(res['arch'])
         # Iterate on all root children and remove them except for the tag
         # separator with id attribute = 'fields'
