@@ -332,15 +332,18 @@ class MassEditWizardStart(ModelView):
         return res
 
     @classmethod
-    def default_get(cls, fields, with_rec_name=True, with_default=True):
+    def default_get(
+            cls, fields_names=None, with_rec_name=True, with_default=True):
         pool = Pool()
         context = Transaction().context
-        res = dict.fromkeys([f for f in fields if f[:10] == 'selection_'], '')
+        res = dict.fromkeys([
+                f for f in fields_names if f[:10] == 'selection_'], '')
         model = context.get('active_model')
         if model:
             EditingModel = pool.get(model)
-            res.update(EditingModel.default_get([f for f in fields
-                        if f[:10] != 'selection_'], with_rec_name, with_default))
+            res.update(EditingModel.default_get(
+                    [f for f in fields_names if f[:10] != 'selection_'],
+                    with_rec_name, with_default))
         return res
 
 
