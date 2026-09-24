@@ -3,6 +3,9 @@
 this repository contains the full copyright notices and license terms. -->
 <tryton>
     <data grouped="1">
+        <record model="ir.message" id="msg_admin_button_only">
+            <field name="text">Only administrators may perform this action.</field>
+        </record>
         <record model="ir.message" id="not_modelsql">
             <field name="text">Model "%(model)s" does not store information to an SQL table.</field>
         </record>

@@ -7,6 +7,7 @@ from trytond.transaction import Transaction
 from trytond.pool import Pool
 from trytond.wizard import Wizard, StateView, StateTransition, Button
 from trytond.model import ModelView, ModelSQL, fields, Unique
+from trytond.model.modelstorage import AccessError
 from trytond.pyson import Bool, Eval, PYSONEncoder
 from trytond.i18n import gettext
 from trytond.exceptions import UserError
@@ -39,9 +40,13 @@ class MassEdit(ModelSQL, ModelView):
         ]
         cls._buttons.update({
                 'create_keyword': {
+                    'readonly': ~Eval('context', {}).get(
+                        'administrator', False),
                     'invisible': Bool(Eval('keyword')),
                     },
                 'remove_keyword': {
+                    'readonly': ~Eval('context', {}).get(
+                        'administrator', False),
                     'invisible': ~Bool(Eval('keyword')),
                     },
                 })
@@ -70,6 +75,8 @@ class MassEdit(ModelSQL, ModelView):
     @ModelView.button
     def create_keyword(cls, massedits):
         pool = Pool()
+        if not pool.get('res.user').is_administrator():
+            raise AccessError(gettext('mass_editing.msg_admin_button_only'))
         Action = pool.get('ir.action.wizard')
         ModelData = pool.get('ir.model.data')
         Keyword = pool.get('ir.action.keyword')
@@ -91,6 +98,8 @@ class MassEdit(ModelSQL, ModelView):
     @ModelView.button
     def remove_keyword(cls, massedits):
         pool = Pool()
+        if not pool.get('res.user').is_administrator():
+            raise AccessError(gettext('mass_editing.msg_admin_button_only'))
         Keyword = pool.get('ir.action.keyword')
         Keyword.delete([x.keyword for x in massedits if x.keyword])
 

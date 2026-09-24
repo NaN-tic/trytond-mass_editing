@@ -45,36 +45,16 @@
             <field name="perm_create" eval="False"/>
             <field name="perm_delete" eval="False"/>
         </record>
-        <record model="ir.model.access" id="access_mass_editing_admin">
-            <field name="model">mass.editing</field>
-            <field name="group" ref="res.group_admin"/>
-            <field name="perm_read" eval="True"/>
-            <field name="perm_write" eval="True"/>
-            <field name="perm_create" eval="True"/>
-            <field name="perm_delete" eval="True"/>
-        </record>
         <record model="ir.model.button" id="remove_keyword_button">
             <field name="name">remove_keyword</field>
             <field name="string">Remove Keyword</field>
             <field name="model">mass.editing</field>
         </record>
-        <record model="ir.model.button-res.group"
-            id="remove_keyword_button_group">
-            <field name="button" ref="remove_keyword_button"/>
-            <field name="group" ref="res.group_admin"/>
-        </record>
-
         <record model="ir.model.button" id="create_keyword_button">
             <field name="name">create_keyword</field>
             <field name="string">Create Keyword</field>
             <field name="model">mass.editing</field>
         </record>
-        <record model="ir.model.button-res.group"
-            id="create_keyword_button_group_account">
-            <field name="button" ref="create_keyword_button"/>
-            <field name="group" ref="res.group_admin"/>
-        </record>
-
         <menuitem action="action_mass_editing_view"
             id="menu_mass_editing"
             parent="ir.menu_models"
