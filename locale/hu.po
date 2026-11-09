@@ -1,0 +1,123 @@
+#
+msgid ""
+msgstr ""
+"Language: hu\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgctxt "field:mass.editing,keyword:"
+msgid "Keyword"
+msgstr "Kulcsszó"
+
+msgctxt "field:mass.editing,model:"
+msgid "Model"
+msgstr "Minta"
+
+msgctxt "field:mass.editing,model_fields:"
+msgid "Fields"
+msgstr "Mezők"
+
+msgctxt "field:mass.editing-ir.model.field,field:"
+msgid "Field"
+msgstr "Mező"
+
+msgctxt "field:mass.editing-ir.model.field,mass_edit:"
+msgid "Mass"
+msgstr "Tömeges"
+
+msgctxt "model:ir.action,name:action_mass_editing_view"
+msgid "Mass Editing"
+msgstr "Tömeges szerkesztés"
+
+msgctxt "model:ir.action,name:wizard_mass_editing"
+msgid "Massive Update"
+msgstr "Tömeges frissítés"
+
+msgctxt "model:ir.message,text:add"
+msgid "Add"
+msgstr "Hozzáad"
+
+#, python-format
+msgctxt "model:ir.message,text:msg_error_setter"
+msgid ""
+"Can not add the field \"%(name)s\" because it is a function field without "
+"setter."
+msgstr ""
+"A(z) „%(name)s” mező nem adható hozzá, mert beállítófüggvény nélküli "
+"függvénymező."
+
+#, python-format
+msgctxt "model:ir.message,text:not_modelsql"
+msgid "Model \"%(model)s\" does not store information to an SQL table."
+msgstr "A(z) „%(model)s” modell nem SQL-táblában tárolja az adatokat."
+
+msgctxt "model:ir.message,text:remove"
+msgid "Remove"
+msgstr "Eltávolítás"
+
+msgctxt "model:ir.message,text:remove_all"
+msgid "Remove All"
+msgstr "Összes eltávolítása"
+
+msgctxt "model:ir.message,text:set"
+msgid "Set"
+msgstr "Aktualizálás"
+
+msgctxt "model:ir.model.button,string:create_keyword_button"
+msgid "Create Keyword"
+msgstr "Kulcsszó létrehozása"
+
+msgctxt "model:ir.model.button,string:remove_keyword_button"
+msgid "Remove Keyword"
+msgstr "Kulcsszó eltávolítása"
+
+msgctxt "model:ir.ui.menu,name:massediting_menu"
+msgid "Mass Editing"
+msgstr "Tömeges szerkesztés"
+
+msgctxt "model:ir.ui.menu,name:menu_mass_editing"
+msgid "Mass Editing"
+msgstr "Tömeges szerkesztés"
+
+msgctxt "model:mass.editing,name:"
+msgid "Mass Edit"
+msgstr "Tömeges szerkesztés"
+
+msgctxt "model:mass.editing-ir.model.field,name:"
+msgid "Mass Edit Fields"
+msgstr "Tömegesen szerkesztendő mezők"
+
+msgctxt "model:mass.editing.wizard.start,name:"
+msgid "Mass Edit Wizard Start"
+msgstr "Tömeges szerkesztési varázsló indítása"
+
+msgctxt "view:mass.editing.wizard.start:"
+msgid "Select fields to update."
+msgstr "Válassza ki a frissítendő mezőket."
+
+msgctxt "view:mass.editing:"
+msgid ""
+"Mass editing is a dangerous operation and in some cases may not work or not "
+"work as expected. Make responsible use of it with previous relevant tests."
+msgstr ""
+"A tömeges szerkesztés veszélyes művelet, és egyes esetekben nem működik, "
+"vagy nem a várt módon működik. Felelősséggel, előzetes megfelelő tesztelés "
+"után használja."
+
+msgctxt "wizard_button:mass.editing.wizard,start,end:"
+msgid "Cancel"
+msgstr "Mégse"
+
+msgctxt "wizard_button:mass.editing.wizard,start,update:"
+msgid "Apply"
+msgstr "Alkalmazás"
+
+msgctxt "field:mass.editing,model_name:"
+msgid "Model Name"
+msgstr "Mintanév"
+
+msgctxt "model:mass.editing,string:"
+msgid "Mass Editing"
+msgstr "Tömeges szerkesztés"
