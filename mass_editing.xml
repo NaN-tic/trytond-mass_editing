@@ -2,6 +2,10 @@
 <tryton>
     <data>
 
+        <record model="res.group" id="group_mass_editing">
+            <field name="name">Mass Edit</field>
+        </record>
+
         <record id="view_mass_editing_tree" model="ir.ui.view">
             <field name="model">mass.editing</field>
             <field name="type">tree</field>
@@ -36,6 +40,11 @@
         <record model="ir.action.wizard" id="wizard_mass_editing">
             <field name="name">Massive Update</field>
             <field name="wiz_name">mass.editing.wizard</field>
+        </record>
+        <record model="ir.action-res.group"
+                id="wizard_mass_editing-group_mass_editing">
+            <field name="action" ref="wizard_mass_editing"/>
+            <field name="group" ref="group_mass_editing"/>
         </record>
 
         <record model="ir.model.access" id="access_mass_editing">
