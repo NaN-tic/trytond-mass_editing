@@ -93,6 +93,10 @@ msgctxt "model:mass.editing.wizard.start,name:"
 msgid "Mass Edit Wizard Start"
 msgstr "Tömeges szerkesztési varázsló indítása"
 
+msgctxt "model:res.group,name:group_mass_editing"
+msgid "Mass Edit"
+msgstr "Tömeges szerkesztés"
+
 msgctxt "view:mass.editing.wizard.start:"
 msgid "Select fields to update."
 msgstr "Válassza ki a frissítendő mezőket."

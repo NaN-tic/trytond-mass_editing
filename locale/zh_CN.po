@@ -91,6 +91,10 @@ msgctxt "model:mass.editing.wizard.start,name:"
 msgid "Mass Edit Wizard Start"
 msgstr "批量编辑向导：开始"
 
+msgctxt "model:res.group,name:group_mass_editing"
+msgid "Mass Edit"
+msgstr "批量编辑"
+
 msgctxt "view:mass.editing.wizard.start:"
 msgid "Select fields to update."
 msgstr "选择要更新的字段。"
