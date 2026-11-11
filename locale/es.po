@@ -86,6 +86,10 @@ msgctxt "model:mass.editing.wizard.start,name:"
 msgid "Mass Edit Wizard Start"
 msgstr "Inicio asistente actualización masiva"
 
+msgctxt "model:res.group,name:group_mass_editing"
+msgid "Mass Edit"
+msgstr "Actualización masiva"
+
 msgctxt "view:mass.editing.wizard.start:"
 msgid "Select fields to update."
 msgstr "Seleccione campos a actualizar."
