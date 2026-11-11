@@ -52,6 +52,44 @@ class MassEdit(ModelSQL, ModelView):
                 })
 
     @classmethod
+    def __register__(cls, module_name):
+        super().__register__(module_name)
+        pool = Pool()
+        Action = pool.get('ir.action.wizard')
+        Keyword = pool.get('ir.action.keyword')
+        Model = pool.get('ir.model')
+        table = cls.__table__()
+        keyword = Keyword.__table__()
+        action = Action.__table__()
+        model = Model.__table__()
+        cursor = Transaction().connection.cursor()
+
+        # Replace shared actions with model-specific actions on upgrade.
+        cursor.execute(*table.join(keyword,
+                condition=table.keyword == keyword.id
+                ).join(action, condition=keyword.action == action.action
+                ).join(model, condition=table.model == model.id
+                ).select(keyword.id, action.id, model.name,
+                    where=(action.model == None)
+                    & (action.wiz_name == 'mass.editing.wizard')))
+        for keyword_id, action_id, model_name in cursor.fetchall():
+            new_action = cls._create_wizard_action(
+                Action(action_id), model_name)
+            Keyword.write([Keyword(keyword_id)], {
+                    'action': new_action.action.id,
+                    })
+
+    @classmethod
+    def _create_wizard_action(cls, template, model_name):
+        pool = Pool()
+        Action = pool.get('ir.action.wizard')
+        Keyword = pool.get('ir.action.keyword')
+        action, = Action.copy([template], {'model': model_name})
+        # The template keywords belong to other model configurations.
+        Keyword.delete(list(action.keywords))
+        return action
+
+    @classmethod
     def validate(cls, massedits):
         super(MassEdit, cls).validate(massedits)
         for massedit in massedits:
@@ -84,8 +122,9 @@ class MassEdit(ModelSQL, ModelView):
         for massedit in massedits:
             if massedit.keyword:
                 continue
-            action = Action(ModelData.get_id('mass_editing',
+            template = Action(ModelData.get_id('mass_editing',
                     'wizard_mass_editing'))
+            action = cls._create_wizard_action(template, massedit.model.name)
             keyword = Keyword()
             keyword.keyword = 'form_action'
             keyword.model = '%s,-1' % massedit.model.name
@@ -100,8 +139,16 @@ class MassEdit(ModelSQL, ModelView):
         pool = Pool()
         if not pool.get('res.user').is_administrator():
             raise AccessError(gettext('mass_editing.msg_admin_button_only'))
+        Action = pool.get('ir.action.wizard')
         Keyword = pool.get('ir.action.keyword')
-        Keyword.delete([x.keyword for x in massedits if x.keyword])
+        keywords = [x.keyword for x in massedits if x.keyword]
+        actions = Action.search([
+                ('action', 'in', [k.action.id for k in keywords]),
+                ('wiz_name', '=', 'mass.editing.wizard'),
+                ('model', '!=', None),
+                ])
+        Keyword.delete(keywords)
+        Action.delete([a for a in actions if not a.keywords])
 
     @classmethod
     def delete(cls, massedits):
