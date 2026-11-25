@@ -1,0 +1,126 @@
+#
+msgid ""
+msgstr ""
+"Language: km\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgctxt "field:mass.editing,keyword:"
+msgid "Keyword"
+msgstr "ពាក្យគន្លឹះ"
+
+msgctxt "field:mass.editing,model:"
+msgid "Model"
+msgstr "ម៉ូដែល"
+
+msgctxt "field:mass.editing,model_fields:"
+msgid "Fields"
+msgstr "វាល"
+
+msgctxt "field:mass.editing-ir.model.field,field:"
+msgid "Field"
+msgstr "វាល"
+
+msgctxt "field:mass.editing-ir.model.field,mass_edit:"
+msgid "Mass"
+msgstr "ជាច្រើនក្នុងពេលតែមួយ"
+
+msgctxt "model:ir.action,name:action_mass_editing_view"
+msgid "Mass Editing"
+msgstr "ការកែសម្រួលច្រើនក្នុងពេលតែមួយ"
+
+msgctxt "model:ir.action,name:wizard_mass_editing"
+msgid "Massive Update"
+msgstr "ធ្វើបច្ចុប្បន្នភាពជាក្រុម"
+
+msgctxt "model:ir.message,text:add"
+msgid "Add"
+msgstr "បន្ថែម"
+
+#, python-format
+msgctxt "model:ir.message,text:msg_error_setter"
+msgid ""
+"Can not add the field \"%(name)s\" because it is a function field without "
+"setter."
+msgstr ""
+"មិនអាចបន្ថែមវាល «%(name)s» បានទេ ព្រោះវាជាវាលមុខងារដែលគ្មានមុខងារកំណត់តម្លៃ។"
+
+#, python-format
+msgctxt "model:ir.message,text:not_modelsql"
+msgid "Model \"%(model)s\" does not store information to an SQL table."
+msgstr "ម៉ូដែល «%(model)s» មិនរក្សាទុកព័ត៌មានក្នុងតារាង SQL ទេ។"
+
+msgctxt "model:ir.message,text:remove"
+msgid "Remove"
+msgstr "ដកចេញ"
+
+msgctxt "model:ir.message,text:remove_all"
+msgid "Remove All"
+msgstr "ដកចេញទាំងអស់"
+
+msgctxt "model:ir.message,text:set"
+msgid "Set"
+msgstr "កំណត់"
+
+msgctxt "model:ir.model.button,string:create_keyword_button"
+msgid "Create Keyword"
+msgstr "បង្កើតពាក្យគន្លឹះ"
+
+msgctxt "model:ir.model.button,string:remove_keyword_button"
+msgid "Remove Keyword"
+msgstr "ដកពាក្យគន្លឹះ"
+
+msgctxt "model:ir.ui.menu,name:massediting_menu"
+msgid "Mass Editing"
+msgstr "ការកែសម្រួលច្រើនក្នុងពេលតែមួយ"
+
+msgctxt "model:ir.ui.menu,name:menu_mass_editing"
+msgid "Mass Editing"
+msgstr "ការកែសម្រួលច្រើនក្នុងពេលតែមួយ"
+
+msgctxt "model:mass.editing,name:"
+msgid "Mass Edit"
+msgstr "កែសម្រួលជាក្រុម"
+
+msgctxt "model:mass.editing-ir.model.field,name:"
+msgid "Mass Edit Fields"
+msgstr "វាលសម្រាប់កែសម្រួលជាក្រុម"
+
+msgctxt "model:mass.editing.wizard.start,name:"
+msgid "Mass Edit Wizard Start"
+msgstr "ចាប់ផ្តើមជំនួយការកែសម្រួលជាក្រុម"
+
+msgctxt "model:res.group,name:group_mass_editing"
+msgid "Mass Edit"
+msgstr "កែសម្រួលជាក្រុម"
+
+msgctxt "view:mass.editing.wizard.start:"
+msgid "Select fields to update."
+msgstr "ជ្រើសរើសវាលដើម្បីធ្វើបច្ចុប្បន្នភាព។"
+
+msgctxt "view:mass.editing:"
+msgid ""
+"Mass editing is a dangerous operation and in some cases may not work or not "
+"work as expected. Make responsible use of it with previous relevant tests."
+msgstr ""
+"ការកែសម្រួលជាក្រុមជាប្រតិបត្តិការដែលមានហានិភ័យ ហើយអាចមិនដំណើរការ "
+"ឬដំណើរការខុសពីការរំពឹងក្នុងករណីខ្លះ។ សូមប្រើដោយប្រុងប្រយ័ត្ន "
+"និងធ្វើតេស្តពាក់ព័ន្ធជាមុន។"
+
+msgctxt "wizard_button:mass.editing.wizard,start,end:"
+msgid "Cancel"
+msgstr "បោះបង់"
+
+msgctxt "wizard_button:mass.editing.wizard,start,update:"
+msgid "Apply"
+msgstr "អនុវត្ត"
+
+msgctxt "field:mass.editing,model_name:"
+msgid "Model Name"
+msgstr "ឈ្មោះម៉ូដែល"
+
+msgctxt "model:mass.editing,string:"
+msgid "Mass Editing"
+msgstr "ការកែសម្រួលច្រើនក្នុងពេលតែមួយ"
